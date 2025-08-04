@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DarkRider Minecraft Server</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #121212; color: #fff; text-align: center; padding: 50px; }
+        .container { background-color: #1e1e1e; padding: 30px; border-radius: 10px; max-width: 500px; margin: auto; }
+        input, button { padding: 10px; margin: 10px; width: 80%; border-radius: 5px; border: none; }
+        .admin-section { margin-top: 30px; background: #2a2a2a; padding: 15px; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to DarkRider Server</h1>
+        <p>Server IP: <strong>darkrider.me</strong></p>
+
+        <div id="login">
+            <input type="email" id="email" placeholder="Enter Email" required><br>
+            <input type="text" id="phone" placeholder="Enter Phone Number" required><br>
+            <button onclick="login()">Login</button>
+        </div>
+
+        <div id="user-panel" style="display:none;">
+            <h2 id="user-role"></h2>
+            <div id="admin-options" style="display:none;" class="admin-section">
+                <h3>Add Premium</h3>
+                <input type="text" id="server-ip" placeholder="Enter Server IP"><br>
+                <input type="number" id="max-premium" placeholder="Max Premium Users (e.g. 2000)"><br>
+                <button onclick="addPremium()">Add Premium Access</button>
+            </div>
+            <div id="buy-premium" style="display:none;">
+                <h3>Buy Premium - Only Rs.200</h3>
+                <p>Send payment to:</p>
+                <p>EasyPaisa: <strong>03005702588</strong></p>
+                <p>JazzCash: <strong>03005702588</strong></p>
+                <button onclick="confirmPayment()">I have paid</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("phone").value;
+            if (!email || !phone) return alert("Enter valid email and phone");
+
+            localStorage.setItem("email", email);
+            localStorage.setItem("phone", phone);
+            checkLogin();
+        }
+
+        function checkLogin() {
+            const email = localStorage.getItem("email");
+            const phone = localStorage.getItem("phone");
+            if (!email || !phone) return;
+
+            document.getElementById("login").style.display = "none";
+            document.getElementById("user-panel").style.display = "block";
+
+            if (email === "aounasif6675@gmail.com" && phone === "03005702588") {
+                document.getElementById("user-role").innerText = "Welcome Owner";
+                document.getElementById("admin-options").style.display = "block";
+            } else {
+                document.getElementById("user-role").innerText = "Welcome Player";
+                document.getElementById("buy-premium").style.display = "block";
+            }
+        }
+
+        function addPremium() {
+            const ip = document.getElementById("server-ip").value;
+            const max = document.getElementById("max-premium").value;
+            alert("Premium access enabled for " + max + " users at " + ip);
+        }
+
+        function confirmPayment() {
+            alert("Payment received! You will be added soon.");
+        }
+
+        // Auto-login if already stored
+        checkLogin();
+    </script>
+</body>
+</html>
